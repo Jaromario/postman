@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "27ae6cf0-fbc3-476d-8a4a-29e913decf71",
+		"name": "Ejemplo Chuck Norris",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41986640",
+		"_collection_link": "https://bold-satellite-97827.postman.co/workspace/Postman-API-Fundamentals-Studen~610d6755-0648-47d0-b8ec-af3fee8e21dc/collection/41986640-27ae6cf0-fbc3-476d-8a4a-29e913decf71?action=share&source=collection_link&creator=41986640"
+	},
+	"item": [
+		{
+			"name": "Random Joke",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response content type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.exist.and.to.have.lengthOf.at.least(1, \"Response body should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response schema is valid\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.all.keys(\r",
+							"        \"categories\",\r",
+							"        \"created_at\",\r",
+							"        \"icon_url\",\r",
+							"        \"id\",\r",
+							"        \"updated_at\",\r",
+							"        \"url\",\r",
+							"        \"value\"\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/random",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Random Joke from Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response Content-Type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body conforms to expected JSON schema\", function () {\r",
+							"    const responseBody = pm.response.json();\r",
+							"\r",
+							"    // Asegúrate de que la respuesta es un objeto\r",
+							"    pm.expect(responseBody).to.be.an('object');\r",
+							"\r",
+							"    // Validar que contiene todas las claves esperadas\r",
+							"    pm.expect(responseBody).to.have.all.keys(\r",
+							"        \"categories\",\r",
+							"        \"created_at\",\r",
+							"        \"icon_url\",\r",
+							"        \"id\",\r",
+							"        \"updated_at\",\r",
+							"        \"url\",\r",
+							"        \"value\"\r",
+							"    );\r",
+							"\r",
+							"    // Validar que el contenido sea correcto\r",
+							"    pm.expect(responseBody.value).to.be.a('string').and.not.empty;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/random?category=history",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"random"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "history"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response content type is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    const responseBody = pm.response.text();\r",
+							"    pm.expect(responseBody).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response is an array of categories\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+							"    responseData.forEach(category => {\r",
+							"        pm.expect(category).to.be.a('string');\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"    pm.test(\"Response includes the category 'animal'\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.include('animal');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"La respuesta contiene exactamente 16 categorías\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.eql(16);\r",
+							"});\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/categories",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api.chucknorris.io/jokes",
+			"type": "default"
+		}
+	]
+}
